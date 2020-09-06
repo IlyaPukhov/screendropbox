@@ -28,7 +28,7 @@ public class MyThread extends Thread {
 
                 ByteArrayOutputStream on = new ByteArrayOutputStream();
 
-                //приоводим скриншот к формату PNG
+                //приводим скриншот к формату PNG
                 ImageIO.write(screenshot, "png", on);
                 byte[] bytes = on.toByteArray();
                 InputStream in = new ByteArrayInputStream(bytes);
